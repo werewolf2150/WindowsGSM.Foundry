@@ -35,7 +35,7 @@ namespace WindowsGSM.Plugins
 
 
         // - Game server Fixed variables
-        public override string StartPath => @"FoundryDedicatedServerLauncher.bat"; // Game server start path
+        public override string StartPath => @"FoundryDedicatedServer.exe"; // Game server start path
         public string FullName = "Foundry Dedicated Server"; // Game server FullName
         public bool AllowsEmbedConsole = true;  // Does this server support output redirect?
         public int PortIncrements = 1; // This tells WindowsGSM how many ports should skip after installation
