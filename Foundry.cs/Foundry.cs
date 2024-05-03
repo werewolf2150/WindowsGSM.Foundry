@@ -33,7 +33,22 @@ namespace WindowsGSM.Plugins
         private readonly ServerConfig _serverData;
         public string Error, Notice;
 
-
+        // - Game server default values
+        public string Port = "3724"; // Default port
+        public string QueryPort = "3725"; // Default query port. This is the port specified in the Server Manager in the client UI to establish a server connection.
+        public string BeaconPort = "3726"; // Default beacon port. This port currently cannot be set freely.
+		//
+		public string ServerName = "HappyPlace";
+		public string ServerWorldName = "MyFancyFactory";
+		public string ServerPassword = "only_friends"; //password to connect
+        public string Defaultmap = "MyFancyFactory"; // Default map name
+		public string DefaultPause = "true"; //  Will the server pause when nobody is connected.
+		public string DefaultAutoSaveInterval = "300"; // Sets the autosave frequency in seconds.
+		public string DefaultPublic = "true"; // Sets whether the server is listed on the Steam server browser.
+		public string DefaultMapSeed = "42938743982"; //  Sets the map seed used to generate the world.
+		public string DefaultFolder = "Server01"; // Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.
+        public string Maxplayers = "32"; // Default maxplayers
+		
         // - Game server Fixed variables
         public override string StartPath => @".\FoundryDedicatedServer.exe"; // Game server start path
         public string FullName = "Foundry Dedicated Server"; // Game server FullName
@@ -43,19 +58,6 @@ namespace WindowsGSM.Plugins
         // TODO: Undisclosed method
         public object QueryMethod = new A2S(); // Query method should be use on current server type. Accepted value: null or new A2S() or new FIVEM() or new UT3()
 
-        // - Game server default values
-		public string ServerName = "HappyPlace";
-		public string ServerWorldName = "MyFancyFactory";
-        public string Port = "3724"; // Default port
-		public string ServerPassword = "only_friends"; //password to connect
-        public string Defaultmap = "MyFancyFactory"; // Default map name
-		public string DefaultPause = "true"; //  Will the server pause when nobody is connected.
-		public string DefaultAutoSaveInterval = "300"; // Sets the autosave frequency in seconds.
-		public string DefaultPublic = "true"; // Sets whether the server is listed on the Steam server browser.
-		public string DefaultMapSeed = "42938743982"; //  Sets the map seed used to generate the world.
-		public string DefaultFolder = "Server01"; // Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.
-        public string Maxplayers = "32"; // Default maxplayers
-        
         // TODO: Unsupported option
 
         // TODO: May not support
