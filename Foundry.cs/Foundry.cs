@@ -66,57 +66,59 @@ namespace WindowsGSM.Plugins
 
         // - Create a default cfg for the game server after installation
         public async void CreateAppCFG()
-		{
-			string fileName = "app.cfg";
-			// Chemin complet du fichier
-			string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
-			
-			try
-			{
-			// Créer le fichier
-			using (StreamWriter writer = new StreamWriter(filePath))
-			{
-            // Écrire les informations dans le fichier
-			writer.WriteLine($"//Available Options:");
-			writer.WriteLine($"//server_world_name");
-			writer.WriteLine($"//Sets the server world name. This is the folder where the save files will be stored.");
-			writer.WriteLine($"server_world_name={serverData.ServerName}");
-			writer.WriteLine($"//server_password");
-			writer.WriteLine($"//Sets the server password.");
-			writer.WriteLine($"server_password={ServerPassword}");
-			writer.WriteLine($"//pause_server_when_empty");
-			writer.WriteLine($"//Will the server pause when nobody is connected.");
-			writer.WriteLine($"pause_server_when_empty={DefaultPause}");
-			writer.WriteLine($"//autosave_interval");
-			writer.WriteLine($"//Sets the autosave frequency in seconds.");
-			writer.WriteLine($"autosave_interval={DefaultAutoSaveInterval}");
-			writer.WriteLine($"//server_is_public");
-			writer.WriteLine($"//Sets whether the server is listed on the Steam server browser.");
-			writer.WriteLine($"server_is_public={DefaultPublic}");
-			writer.WriteLine($"//server_port");
-			writer.WriteLine($"//Sets the network port used by the game. Default is 3724.");
-			writer.WriteLine($"server_port={serverData.ServerPort}");
-			writer.WriteLine($"//map_seed");
-			writer.WriteLine($"//Sets the map seed used to generate the world.");
-			writer.WriteLine($"map_seed={serverData.ServerMap}");
-			writer.WriteLine($"//server_persistent_data_override_folder");
-			writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
-			writer.WriteLine($"server_persistent_data_override_folder={DefaultFolder}");
-			writer.WriteLine($"//server_name");
-			writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
-			writer.WriteLine($"server_name={serverData.ServerName}");
-			writer.WriteLine($"//server_max_players");
-			writer.WriteLine($"//This sets the max amount of players on a server.");
-			writer.WriteLine($"server_max_players={serverData.ServerMaxPlayer}");
-			}	
+        {
+            string fileName = "app.cfg";
+            // Chemin complet du fichier
+            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
 
-			Console.WriteLine("Fichier app.cfg créé avec succès !");
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
-			}
-		}
+            try
+            {
+                // Créer le fichier
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    // Écrire les informations dans le fichier
+                    writer.WriteLine($"//Available Options:");
+                    writer.WriteLine($"//server_world_name");
+                    writer.WriteLine($"//Sets the server world name. This is the folder where the save files will be stored.");
+                    writer.WriteLine($"server_world_name={serverData.ServerName}");
+                    writer.WriteLine($"//server_password");
+                    writer.WriteLine($"//Sets the server password.");
+                    writer.WriteLine($"server_password={ServerPassword}");
+                    writer.WriteLine($"//pause_server_when_empty");
+                    writer.WriteLine($"//Will the server pause when nobody is connected.");
+                    writer.WriteLine($"pause_server_when_empty={DefaultPause}");
+                    writer.WriteLine($"//autosave_interval");
+                    writer.WriteLine($"//Sets the autosave frequency in seconds.");
+                    writer.WriteLine($"autosave_interval={DefaultAutoSaveInterval}");
+                    writer.WriteLine($"//server_is_public");
+                    writer.WriteLine($"//Sets whether the server is listed on the Steam server browser.");
+                    writer.WriteLine($"server_is_public={DefaultPublic}");
+                    writer.WriteLine($"//server_port");
+                    writer.WriteLine($"//Sets the network port used by the game. Default is 3724.");
+                    writer.WriteLine($"server_port={serverData.ServerPort}");
+                    writer.WriteLine($"//map_seed");
+                    writer.WriteLine($"//Sets the map seed used to generate the world.");
+                    writer.WriteLine($"map_seed={serverData.ServerMap}");
+                    writer.WriteLine($"//server_persistent_data_override_folder");
+                    writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
+                    writer.WriteLine($"server_persistent_data_override_folder={DefaultFolder}");
+                    writer.WriteLine($"//server_name");
+                    writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
+                    writer.WriteLine($"server_name={serverData.ServerName}");
+                    writer.WriteLine($"//server_max_players");
+                    writer.WriteLine($"//This sets the max amount of players on a server.");
+                    writer.WriteLine($"server_max_players={serverData.ServerMaxPlayer}");
+                    writer.Close();
+                }
+
+                var serverConsole = new ServerConsole(serverData.ServerID);
+                serverConsole.Add($"ConfigFile {ConfigFile} successfully created!");
+            }
+            catch (Exception ex)
+            {
+                Error = $"Error Occured : {ex.Message}";
+            }
+        }
         public void UpdateCFG()
         {
             // Chemin complet du fichier
@@ -197,33 +199,27 @@ namespace WindowsGSM.Plugins
                     WorkingDirectory = ServerPath.GetServersServerFiles(serverData.ServerID),
                     FileName = shipExePath,
                     Arguments = param,
-                    WindowStyle = ProcessWindowStyle.Normal,
-                    CreateNoWindow = false,
-                    UseShellExecute = false
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
                 },
                 EnableRaisingEvents = true
             };
 
-            // Set up Redirect Input and Output to WindowsGSM Console if EmbedConsole is on
-            if (AllowsEmbedConsole)
-            {
-                p.StartInfo.RedirectStandardInput = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-                var serverConsole = new ServerConsole(serverData.ServerID);
-                p.OutputDataReceived += serverConsole.AddOutput;
-                p.ErrorDataReceived += serverConsole.AddOutput;
-            }
+            var serverConsole = new ServerConsole(serverData.ServerID);
+            p.OutputDataReceived += serverConsole.AddOutput;
+            p.ErrorDataReceived += serverConsole.AddOutput;
 
             // Start Process
             try
             {
                 p.Start();
-                if (AllowsEmbedConsole)
-                {
-                    p.BeginOutputReadLine();
-                    p.BeginErrorReadLine();
-                }
+                p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
+
                 return p;
             }
             catch (Exception e)
@@ -234,7 +230,7 @@ namespace WindowsGSM.Plugins
         }
 
 
-// - Stop server function
+        // - Stop server function
         public async Task Stop(Process p)
         {
             await Task.Run(() =>
@@ -245,7 +241,7 @@ namespace WindowsGSM.Plugins
             });
         }
 
-// fixes WinGSM bug, https://github.com/WindowsGSM/WindowsGSM/issues/57#issuecomment-983924499
+        // fixes WinGSM bug, https://github.com/WindowsGSM/WindowsGSM/issues/57#issuecomment-983924499
         public async Task<Process> Update(bool validate = false, string custom = null)
         {
             var (p, error) = await Installer.SteamCMD.UpdateEx(serverData.ServerID, AppId, validate, custom: custom, loginAnonymous: loginAnonymous);
