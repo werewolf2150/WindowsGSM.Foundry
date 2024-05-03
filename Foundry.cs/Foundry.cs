@@ -42,7 +42,7 @@ namespace WindowsGSM.Plugins
         // - Game server default values
         public string ServerName = "HappyPlace";
         public string Port = "3724"; // Default port
-        public string QueryPort = "3724"; // Default port
+        public string QueryPort = "3725"; // Default port
         public string Defaultmap = new Random().Next().ToString(); // Sets the map seed used to generate the world.
         public string Maxplayers = "32"; // Default maxplayers
 
@@ -93,7 +93,7 @@ namespace WindowsGSM.Plugins
                     writer.WriteLine($"map_seed={serverData.ServerMap}");
                     writer.WriteLine($"//server_persistent_data_override_folder");
                     writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
-                    writer.WriteLine($"server_persistent_data_override_folder=Server{serverData.ServerID}");
+                    writer.WriteLine($"server_persistent_data_override_folder=.\Save");
                     writer.WriteLine($"//server_name");
                     writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
                     writer.WriteLine($"server_name={serverData.ServerName}");
