@@ -27,13 +27,7 @@ namespace WindowsGSM.Plugins
         public override string AppId => "2915550"; // Game server appId Steam
 
         // - Standard Constructor and properties
-        public Foundry(ServerConfig serverData) : base(serverData)
-        {
-            //create a random seed
-            serverData.ServerMap = new Random().Next().ToString();
-            base.serverData = serverData;
-        }
-
+        public Foundry(ServerConfig _serverData) : base(_serverData) => serverData = _serverData;
 
         // - Game server Fixed variables
         public override string StartPath => @".\FoundryDedicatedServer.exe"; // Game server start path
@@ -49,7 +43,7 @@ namespace WindowsGSM.Plugins
         public string ServerName = "HappyPlace";
         public string Port = "3724"; // Default port
         public string QueryPort = "3724"; // Default port
-        public string Defaultmap = "1"; // Sets the map seed used to generate the world.
+        public string Defaultmap = new Random().Next().ToString(); // Sets the map seed used to generate the world.
         public string Maxplayers = "32"; // Default maxplayers
 
         public string ServerPassword = "only_friends"; //password to connect
@@ -63,11 +57,10 @@ namespace WindowsGSM.Plugins
 
 
         // - Create a default cfg for the game server after installation
-        public async void CreateAppCFG()
+        public async void CreateServerCFG()
         {
-            string fileName = "app.cfg";
             // Chemin complet du fichier
-            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
+            string filePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, ConfigFile);
 
             try
             {
