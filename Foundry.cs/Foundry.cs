@@ -102,7 +102,7 @@ namespace WindowsGSM.Plugins
                     writer.WriteLine($"server_max_players={serverData.ServerMaxPlayer}");
                     writer.Close();
                 }
-
+                Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(serverData.ServerID, "Mods"));
                 Notice = $"ConfigFile {ConfigFile} successfully created!";
             }
             catch (Exception ex)
