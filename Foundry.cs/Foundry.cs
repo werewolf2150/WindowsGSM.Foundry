@@ -102,8 +102,7 @@ namespace WindowsGSM.Plugins
                     writer.Close();
                 }
 
-                var serverConsole = new ServerConsole(serverData.ServerID);
-                serverConsole.Add($"ConfigFile {ConfigFile} successfully created!");
+                Notice = $"ConfigFile {ConfigFile} successfully created!";
             }
             catch (Exception ex)
             {
@@ -162,8 +161,7 @@ namespace WindowsGSM.Plugins
 
                 File.WriteAllText(filePath, sb.ToString());
 
-                var serverConsole = new ServerConsole(serverData.ServerID);
-                serverConsole.Add($"ConfigFile {ConfigFile} successfully updated!");
+                Notice = $"ConfigFile {ConfigFile} successfully updated!";
             }
             catch (Exception ex)
             {
