@@ -56,12 +56,10 @@ namespace WindowsGSM.Plugins
         public string DefaultPause = "true"; //  Will the server pause when nobody is connected.
         public string DefaultAutoSaveInterval = "300"; // Sets the autosave frequency in seconds.
         public string DefaultPublic = "true"; // Sets whether the server is listed on the Steam server browser.
-        public string DefaultFolder = "Server01"; // Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.
         // TODO: Unsupported option
 
         // TODO: May not support
         public string Additional = ""; // Additional server start parameter
-
 
 
         // - Create a default cfg for the game server after installation
@@ -101,7 +99,7 @@ namespace WindowsGSM.Plugins
                     writer.WriteLine($"map_seed={serverData.ServerMap}");
                     writer.WriteLine($"//server_persistent_data_override_folder");
                     writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
-                    writer.WriteLine($"server_persistent_data_override_folder={DefaultFolder}");
+                    writer.WriteLine($"server_persistent_data_override_folder={serverData.ServerName}");
                     writer.WriteLine($"//server_name");
                     writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
                     writer.WriteLine($"server_name={serverData.ServerName}");
@@ -119,6 +117,7 @@ namespace WindowsGSM.Plugins
                 Error = $"Error Occured : {ex.Message}";
             }
         }
+
         public void UpdateCFG()
         {
             // Chemin complet du fichier
