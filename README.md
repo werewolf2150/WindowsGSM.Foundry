@@ -64,6 +64,6 @@ Example: server_name=HappyPlace
 server_max_players
 This sets the max amount of players on a server.
 Example: server_max_players=32
-
+ 5. Create folder manually "Mods"
 # License
 This project is licensed under the MIT License  - see the [LICENSE.md](LICENSE) file for details
