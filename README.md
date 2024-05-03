@@ -25,45 +25,47 @@ https://steamdb.info/app/2915550/info/)](https://dedicated.foundry-game.com/
 3. manage serveur directly in game.
 4. Add file app.cfg with parameters (copy and paste) at folder racine because auto create file failed in the script
 
-server_world_name
-Sets the server world name. This is the folder where the save files will be stored.
-Example: server_world_name=MyFancyFactory
+//server_world_name
+//Sets the server world name. This is the folder where the save files will be stored.
+server_world_name=MyFancyFactory
 
-server_password
-Sets the server password.
-Example: server_password=only_friends
+//server_password
+//Sets the server password.
+server_password=only_friends
 
-pause_server_when_empty
-Will the server pause when nobody is connected.
-Example: pause_server_when_empty=true
+//pause_server_when_empty
+//Will the server pause when nobody is connected.
+pause_server_when_empty=true
 
-autosave_interval
-Sets the autosave frequency in seconds.
-Example: autosave_interval=300
+//autosave_interval
+//Sets the autosave frequency in seconds.
+autosave_interval=300
 
-server_is_public
-Sets whether the server is listed on the Steam server browser.
-Example: server_is_public=true
+//server_is_public
+//Sets whether the server is listed on the Steam server browser.
+server_is_public=true
 
-server_port
-Sets the network port used by the game. Default is 3724.
-Example: server_port=3724
+//server_port
+//Sets the network port used by the game. Default is 3724.
+server_port=3724
 
-map_seed
-Sets the map seed used to generate the world.
-Example: map_seed=42938743982
+//map_seed
+//Sets the map seed used to generate the world.
+map_seed=42938743982
 
-server_persistent_data_override_folder
-Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.
-Example: server_persistent_data_override_folder=C:\Server01
+//server_persistent_data_override_folder
+//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.
+server_persistent_data_override_folder=.\Save
 
-server_name
-This is the name of the server listed in the Steam server browser.
-Example: server_name=HappyPlace
+//server_name
+//This is the name of the server listed in the Steam server browser.
+server_name=HappyPlace
 
-server_max_players
-This sets the max amount of players on a server.
-Example: server_max_players=32
+//server_max_players
+//This sets the max amount of players on a server.
+server_max_players=32
+
+
  5. Create folder manually "Mods"
 # License
 This project is licensed under the MIT License  - see the [LICENSE.md](LICENSE) file for details
