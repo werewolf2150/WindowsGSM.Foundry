@@ -237,9 +237,11 @@ namespace WindowsGSM.Plugins
             {
                 Functions.ServerConsole.SetMainWindow(p.MainWindowHandle);
                 Functions.ServerConsole.SendWaitToMainWindow("^c");
-                p.WaitForExit(20000);
+                p.WaitForExit(7000);
+                p.Kill();
             });
         }
+
 
         // fixes WinGSM bug, https://github.com/WindowsGSM/WindowsGSM/issues/57#issuecomment-983924499
         public async Task<Process> Update(bool validate = false, string custom = null)
