@@ -99,7 +99,7 @@ namespace WindowsGSM.Plugins
                     writer.WriteLine($"map_seed={serverData.ServerMap}");
                     writer.WriteLine($"//server_persistent_data_override_folder");
                     writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
-                    writer.WriteLine($"server_persistent_data_override_folder={serverData.ServerName}");
+                    writer.WriteLine($"server_persistent_data_override_folder=Server{serverData.ServerID}");
                     writer.WriteLine($"//server_name");
                     writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
                     writer.WriteLine($"server_name={serverData.ServerName}");
