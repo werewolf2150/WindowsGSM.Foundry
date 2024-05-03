@@ -115,6 +115,12 @@ namespace WindowsGSM.Plugins
         {
             // Chemin complet du fichier
             string filePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, ConfigFile);
+            if (!File.Exists(filePath))
+            {
+                Notice = $"For some unknown reason {ConfigFile} did not exist. Recreating it. not sure what this means about your savegame though. possible, that you need to move it to the new folder if there is any";
+                CreateServerCFG();
+                return;
+            }
             StringBuilder sb = new StringBuilder();
             try
             {
