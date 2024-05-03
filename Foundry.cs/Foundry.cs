@@ -50,6 +50,7 @@ namespace WindowsGSM.Plugins
         public string DefaultPause = "true"; //  Will the server pause when nobody is connected.
         public string DefaultAutoSaveInterval = "300"; // Sets the autosave frequency in seconds.
         public string DefaultPublic = "true"; // Sets whether the server is listed on the Steam server browser.
+
         // TODO: Unsupported option
 
         // TODO: May not support
