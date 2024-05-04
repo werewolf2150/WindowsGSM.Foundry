@@ -130,18 +130,18 @@ namespace WindowsGSM.Plugins
                 var line = sr.ReadLine();
                 while (line != null)
                 {
-                    if (line.Contains("server_world_name"))
-                        sb.AppendLine($"server_world_name={serverData.ServerName}");
-                    else if (line.Contains("server_port"))
-                        sb.AppendLine($"server_port={serverData.ServerPort}");
-                    else if (line.Contains("server_name"))
-                        sb.AppendLine($"server_name={serverData.ServerName}");
-                    else if (line.Contains("map_seed"))
-                        sb.AppendLine($"map_seed={serverData.ServerMap}");
-                    else if (line.Contains("server_max_players"))
-                        sb.AppendLine($"server_max_players={serverData.ServerMaxPlayer}");
+                    if (line.StartsWith("server_world_name"))
+                        sb.Append($"server_world_name={serverData.ServerName}\n");
+                    else if (line.StartsWith("server_port"))
+                        sb.Append($"server_port={serverData.ServerPort}\n");
+                    else if (line.StartsWith("server_name"))
+                        sb.Append($"server_name={serverData.ServerName}\n");
+                    else if (line.StartsWith("map_seed"))
+                        sb.Append($"map_seed={serverData.ServerMap}\n");
+                    else if (line.StartsWith("server_max_players"))
+                        sb.Append($"server_max_players={serverData.ServerMaxPlayer}\n");
                     else
-                        sb.Append(line);
+                        sb.Append(line+ "\n");
 
                     line = sr.ReadLine();
                 }
