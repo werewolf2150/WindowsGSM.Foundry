@@ -1,8 +1,9 @@
 # WindowsGSM.Foundry
 WindowsGSM plugin that provides Foundry Dedicated server support!
+Conception by werewolf2150 and Raziel7893 (thanks for your best help)
 
 # Requirements
-WindowsGSM >= 1.21.0
+WindowsGSM >= 1.23.1
 
 # The Game
 
