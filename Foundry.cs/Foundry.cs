@@ -19,7 +19,7 @@ namespace WindowsGSM.Plugins
             name = "WindowsGSM.Foundry", // WindowsGSM.XXXX
             author = "werewolf2150",
             description = "WindowsGSM plugin for supporting Foundry Dedicated Server",
-            version = "1.0",
+            version = "1.3",
             url = "https://github.com/werewolf2150/WindowsGSM.Foundry", // Github repository link (Best practice)
             color = "#34c9eb" // Color Hex
         };
