@@ -29,22 +29,22 @@ namespace WindowsGSM.Plugins
         public override string AppId => "2915550"; // Game server appId Steam
 
         // - Standard Constructor and properties
-		public Foundry(ServerConfig serverData) : base(serverData) => base.serverData = _serverData = serverData;
+	public Foundry(ServerConfig serverData) : base(serverData) => base.serverData = _serverData = serverData;
         private readonly ServerConfig _serverData;
-        //public string Error, Notice;
+        public string Error, Notice;
 
         // - Game server default values
         public string Port = "3724"; // Default port
         public string QueryPort = "3725"; // Default query port. This is the port specified in the Server Manager in the client UI to establish a server connection.
         public string BeaconPort = "3726"; // Default beacon port. This port currently cannot be set freely.
-		//
-		public string ServerName = "HappyPlace";
-		public string ServerWorldName = "MyFancyFactory";
-		public string ServerPassword = "only_friends"; //password to connect
+	//
+	public string ServerName = "HappyPlace";
+	public string ServerWorldName = "MyFancyFactory";
+	public string ServerPassword = "only_friends"; //password to connect
         public string Defaultmap = new Random().Next().ToString(); // Sets the map seed used to generate the world.
-		public string DefaultPause = "true"; //  Will the server pause when nobody is connected.
-		public string DefaultAutoSaveInterval = "300"; // Sets the autosave frequency in seconds.
-		public string DefaultPublic = "true"; // Sets whether the server is listed on the Steam server browser.
+	public string DefaultPause = "true"; //  Will the server pause when nobody is connected.
+	public string DefaultAutoSaveInterval = "300"; // Sets the autosave frequency in seconds.
+	public string DefaultPublic = "true"; // Sets whether the server is listed on the Steam server browser.
         public string Maxplayers = "32"; // Default maxplayers
 		
         // - Game server Fixed variables
@@ -64,61 +64,60 @@ namespace WindowsGSM.Plugins
 
 
         // - Create a default cfg for the game server after installation
-		public async void CreateServerCFG()
+	public async void CreateServerCFG()
+	{
+		// Chemin complet du fichier
+		string filePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, ConfigFile);
+		
+   		try
 		{
-			// Chemin complet du fichier
-			//string filePath = Path.Combine(Environment.CurrentDirectory, ConfigFile);
-			string filePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, ConfigFile);
-			
-			try
+			// Créer le fichier
+			using (StreamWriter writer = new StreamWriter(filePath))
 			{
-				// Créer le fichier
-				using (StreamWriter writer = new StreamWriter(filePath))
-				{
-					// Écrire les informations dans le fichier
-                    writer.WriteLine($"//Available Options:");
-                    writer.WriteLine($"//server_world_name");
-                    writer.WriteLine($"//Sets the server world name. This is the folder where the save files will be stored.");
-                    writer.WriteLine($"server_world_name={serverData.ServerName}");
-                    writer.WriteLine($"//server_password");
-                    writer.WriteLine($"//Sets the server password.");
-                    writer.WriteLine($"server_password={ServerPassword}");
-                    writer.WriteLine($"//pause_server_when_empty");
-                    writer.WriteLine($"//Will the server pause when nobody is connected.");
-                    writer.WriteLine($"pause_server_when_empty={DefaultPause}");
-                    writer.WriteLine($"//autosave_interval");
-                    writer.WriteLine($"//Sets the autosave frequency in seconds.");
-                    writer.WriteLine($"autosave_interval={DefaultAutoSaveInterval}");
-                    writer.WriteLine($"//server_is_public");
-                    writer.WriteLine($"//Sets whether the server is listed on the Steam server browser.");
-                    writer.WriteLine($"server_is_public={DefaultPublic}");
-                    writer.WriteLine($"//server_port");
-                    writer.WriteLine($"//Sets the network port used by the game. Default is 3724.");
-                    writer.WriteLine($"server_port={serverData.ServerPort}");
-                    writer.WriteLine($"//map_seed");
-                    writer.WriteLine($"//Sets the map seed used to generate the world.");
-                    writer.WriteLine($"map_seed={serverData.ServerMap}");
-                    writer.WriteLine($"//server_persistent_data_override_folder");
-                    writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
-                    writer.WriteLine($"server_persistent_data_override_folder=Save");
-                    writer.WriteLine($"//server_name");
-                    writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
-                    writer.WriteLine($"server_name={serverData.ServerName}");
-                    writer.WriteLine($"//server_max_players");
-                    writer.WriteLine($"//This sets the max amount of players on a server.");
-                    writer.WriteLine($"server_max_players={serverData.ServerMaxPlayer}");
-					writer.Close();
-				}	
-                Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(serverData.ServerID, "Mods"));
-				Console.WriteLine("Fichier app.cfg créé avec succès !");
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
-			}
+				// Écrire les informations dans le fichier
+                		writer.WriteLine($"//Available Options:");
+                		writer.WriteLine($"//server_world_name");
+                    		writer.WriteLine($"//Sets the server world name. This is the folder where the save files will be stored.");
+                    		writer.WriteLine($"server_world_name={serverData.ServerName}");
+                    		writer.WriteLine($"//server_password");
+                    		writer.WriteLine($"//Sets the server password.");
+                    		writer.WriteLine($"server_password={ServerPassword}");
+                    		writer.WriteLine($"//pause_server_when_empty");
+                    		writer.WriteLine($"//Will the server pause when nobody is connected.");
+                    		writer.WriteLine($"pause_server_when_empty={DefaultPause}");
+                    		writer.WriteLine($"//autosave_interval");
+                    		writer.WriteLine($"//Sets the autosave frequency in seconds.");
+                    		writer.WriteLine($"autosave_interval={DefaultAutoSaveInterval}");
+                    		writer.WriteLine($"//server_is_public");
+                    		writer.WriteLine($"//Sets whether the server is listed on the Steam server browser.");
+                    		writer.WriteLine($"server_is_public={DefaultPublic}");
+	                    	writer.WriteLine($"//server_port");
+                    		writer.WriteLine($"//Sets the network port used by the game. Default is 3724.");
+                    		writer.WriteLine($"server_port={serverData.ServerPort}");
+                    		writer.WriteLine($"//map_seed");
+                    		writer.WriteLine($"//Sets the map seed used to generate the world.");
+                    		writer.WriteLine($"map_seed={serverData.ServerMap}");
+                    		writer.WriteLine($"//server_persistent_data_override_folder");
+                    		writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
+                    		writer.WriteLine($"server_persistent_data_override_folder=Save");
+                    		writer.WriteLine($"//server_name");
+                    		writer.WriteLine($"//This is the name of the server listed in the Steam server browser.");
+                    		writer.WriteLine($"server_name={serverData.ServerName}");
+                    		writer.WriteLine($"//server_max_players");
+                    		writer.WriteLine($"//This sets the max amount of players on a server.");
+                    		writer.WriteLine($"server_max_players={serverData.ServerMaxPlayer}");
+				writer.Close();
+			}	
+                	Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(serverData.ServerID, "Mods"));
+			Console.WriteLine("Fichier app.cfg créé avec succès !");
 		}
-		/*
-		public void UpdateCFG()
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
+		}
+	}
+	/*
+	public void UpdateCFG()
         {
             // Chemin complet du fichier
             string filePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, ConfigFile);
