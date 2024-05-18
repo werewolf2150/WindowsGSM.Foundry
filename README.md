@@ -6,7 +6,8 @@ Conception by werewolf2150 and Raziel7893 (thanks for your best help)
 WindowsGSM >= 1.23.1
 
 # The Game
-
+- Officiel Ressource
+https://dedicated.foundry-game.com/
 - Game
 https://store.steampowered.com/app/983870/FOUNDRY/
 
