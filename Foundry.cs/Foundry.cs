@@ -87,9 +87,9 @@ namespace WindowsGSM.Plugins
                     writer.WriteLine($"//server_port");
                     writer.WriteLine($"//Sets the network port used by the game. Default is 3724.");
                     writer.WriteLine($"server_port={serverData.ServerPort}");
-                    writer.WriteLine($"//map_seed");
+                    writer.WriteLine($"//mapseed");
                     writer.WriteLine($"//Sets the map seed used to generate the world.");
-                    writer.WriteLine($"map_seed={serverData.ServerMap}");
+                    writer.WriteLine($"mapseed={serverData.ServerMap}");
                     writer.WriteLine($"//server_persistent_data_override_folder");
                     writer.WriteLine($"//Sets the absolute folder where things like logs and save files will be stored. This is mostly used by server providers so that they can run multiple dedicated servers on a single machine.");
                     writer.WriteLine($"server_persistent_data_override_folder=Save");
